@@ -1,6 +1,5 @@
 package com.informatorio.actividadfinal.controller;
 
-import java.util.function.Predicate;
 import javax.validation.Valid;
 import com.informatorio.actividadfinal.dto.EventoDTO;
 import com.informatorio.actividadfinal.entity.Emprendimiento;
