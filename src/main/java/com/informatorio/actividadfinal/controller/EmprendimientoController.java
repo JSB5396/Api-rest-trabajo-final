@@ -52,10 +52,8 @@ public class EmprendimientoController {
     }
     @GetMapping(value = "/ap1/v1/emprendimientos")
     public ResponseEntity<?> obtenerTodosLosEmprendimientos(
-        @RequestParam(name = "tag", required = false) String tag) {
-        if (tag != null) {
-            return new ResponseEntity<>(emprendimientoRepository.findByTag(tag) ,HttpStatus.OK);
-        } else { return new ResponseEntity<>(emprendimientoRepository.findAll(), HttpStatus.OK); }
+            @RequestParam(name = "nombre", required = false) String nombre) {
+        return new ResponseEntity<>(emprendimientoService.obtenerTodos(nombre) ,HttpStatus.OK);
     }
     @GetMapping(value = "/api/v1/emprendimientos/no_publicados")
     public ResponseEntity<?> obtenerEmprendimientosNoPublicados() {

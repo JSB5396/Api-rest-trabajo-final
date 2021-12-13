@@ -1,9 +1,12 @@
 package com.informatorio.actividadfinal.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import com.informatorio.actividadfinal.entity.Emprendimiento;
+import com.informatorio.actividadfinal.entity.Tag;
 import com.informatorio.actividadfinal.entity.Usuario;
 import com.informatorio.actividadfinal.repository.EmprendimientoRepository;
+import com.informatorio.actividadfinal.repository.TagRepository;
 import com.informatorio.actividadfinal.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,11 +15,14 @@ import org.springframework.stereotype.Service;
 public class EmprendimientoService {
     private final EmprendimientoRepository emprendimientoRepository;
     private final UsuarioRepository usuarioRepository;
+    private final TagRepository tagRepository;
     @Autowired
     public EmprendimientoService(EmprendimientoRepository emprendimientoRepository,
-                                 UsuarioRepository usuarioRepository) {
+                                 UsuarioRepository usuarioRepository,
+                                 TagRepository tagRepository) {
         this.emprendimientoRepository = emprendimientoRepository;
         this.usuarioRepository = usuarioRepository;
+        this.tagRepository = tagRepository;
     }
 
     public Emprendimiento guardar(Long usuarioId, Emprendimiento emprendimiento) {
@@ -45,5 +51,10 @@ public class EmprendimientoService {
         if (emprendimiento.getTags() != null) { emprendimientoModificado.setTags(emprendimiento.getTags()); }
         emprendimientoModificado.setUltimaModificacion(LocalDateTime.now());
         return emprendimientoRepository.save(emprendimientoModificado);
+    }
+    public List<Emprendimiento> obtenerTodos(String nombre) {
+        if (nombre != null) { Tag tag = tagRepository.findByNombre(nombre);
+            return tag.getEmprendimientos();
+        } else { return emprendimientoRepository.findAll(); }
     }
 }
