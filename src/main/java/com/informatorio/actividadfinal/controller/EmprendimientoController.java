@@ -57,8 +57,7 @@ public class EmprendimientoController {
     }
     @GetMapping(value = "/api/v1/emprendimientos/no_publicados")
     public ResponseEntity<?> obtenerEmprendimientosNoPublicados() {
-        return new ResponseEntity<>(emprendimientoRepository.findAll()
-            .stream().filter(Predicate.not(Emprendimiento::isPublicado)), HttpStatus.OK);
+        return new ResponseEntity<>(emprendimientoService.obtenerNoPublicados(), HttpStatus.OK);
     }
     @PostMapping(value = "/api/v1/emprendimientos/{emprendimientoId}/eventos/{eventoId}")
     public ResponseEntity<?> registrarEvento(@PathVariable("emprendimientoId") Long emprendimientoId,

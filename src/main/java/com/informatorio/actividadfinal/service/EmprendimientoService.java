@@ -2,6 +2,8 @@ package com.informatorio.actividadfinal.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
 import com.informatorio.actividadfinal.entity.Emprendimiento;
 import com.informatorio.actividadfinal.entity.Tag;
 import com.informatorio.actividadfinal.entity.Usuario;
@@ -56,5 +58,9 @@ public class EmprendimientoService {
         if (nombre != null) { Tag tag = tagRepository.findByNombre(nombre);
             return tag.getEmprendimientos();
         } else { return emprendimientoRepository.findAll(); }
+    }
+    public Stream<Emprendimiento> obtenerNoPublicados() {
+        return emprendimientoRepository.findAll().stream()
+            .filter(Predicate.not(Emprendimiento::isPublicado));
     }
 }
